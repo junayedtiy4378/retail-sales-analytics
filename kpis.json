@@ -1,0 +1,16 @@
+{
+  "dataset": "Original synthetic retail sample; not a real business",
+  "currency": "BDT",
+  "raw_rows": 500,
+  "clean_rows": 480,
+  "rejected_rows": 20,
+  "completed_orders": 417,
+  "returned_orders": 21,
+  "cancelled_orders": 42,
+  "units_sold": 1066,
+  "net_sales_bdt": 2356474.5,
+  "gross_profit_bdt": 499544.5,
+  "gross_margin_pct": 21.2,
+  "average_order_value_bdt": 5651.02,
+  "return_rate_pct": 4.79
+}

@@ -1,0 +1,81 @@
+customer_id,city,region,segment
+C001,Dhaka,Dhaka,Consumer
+C002,Chattogram,Chattogram,Consumer
+C003,Sylhet,Sylhet,Small Business
+C004,Khulna,Khulna,Small Business
+C005,Dhaka,Dhaka,Small Business
+C006,Chattogram,Chattogram,Consumer
+C007,Sylhet,Sylhet,Consumer
+C008,Khulna,Khulna,Small Business
+C009,Dhaka,Dhaka,Small Business
+C010,Chattogram,Chattogram,Small Business
+C011,Sylhet,Sylhet,Consumer
+C012,Khulna,Khulna,Small Business
+C013,Dhaka,Dhaka,Small Business
+C014,Chattogram,Chattogram,Small Business
+C015,Sylhet,Sylhet,Consumer
+C016,Khulna,Khulna,Small Business
+C017,Dhaka,Dhaka,Consumer
+C018,Chattogram,Chattogram,Consumer
+C019,Sylhet,Sylhet,Consumer
+C020,Khulna,Khulna,Small Business
+C021,Dhaka,Dhaka,Consumer
+C022,Chattogram,Chattogram,Consumer
+C023,Sylhet,Sylhet,Consumer
+C024,Khulna,Khulna,Consumer
+C025,Dhaka,Dhaka,Consumer
+C026,Chattogram,Chattogram,Consumer
+C027,Sylhet,Sylhet,Small Business
+C028,Khulna,Khulna,Consumer
+C029,Dhaka,Dhaka,Small Business
+C030,Chattogram,Chattogram,Consumer
+C031,Sylhet,Sylhet,Consumer
+C032,Khulna,Khulna,Consumer
+C033,Dhaka,Dhaka,Consumer
+C034,Chattogram,Chattogram,Consumer
+C035,Sylhet,Sylhet,Consumer
+C036,Khulna,Khulna,Consumer
+C037,Dhaka,Dhaka,Small Business
+C038,Chattogram,Chattogram,Small Business
+C039,Sylhet,Sylhet,Small Business
+C040,Khulna,Khulna,Consumer
+C041,Dhaka,Dhaka,Small Business
+C042,Chattogram,Chattogram,Consumer
+C043,Sylhet,Sylhet,Consumer
+C044,Khulna,Khulna,Small Business
+C045,Dhaka,Dhaka,Small Business
+C046,Chattogram,Chattogram,Consumer
+C047,Sylhet,Sylhet,Consumer
+C048,Khulna,Khulna,Consumer
+C049,Dhaka,Dhaka,Consumer
+C050,Chattogram,Chattogram,Small Business
+C051,Sylhet,Sylhet,Small Business
+C052,Khulna,Khulna,Small Business
+C053,Dhaka,Dhaka,Small Business
+C054,Chattogram,Chattogram,Consumer
+C055,Sylhet,Sylhet,Consumer
+C056,Khulna,Khulna,Small Business
+C057,Dhaka,Dhaka,Consumer
+C058,Chattogram,Chattogram,Consumer
+C059,Sylhet,Sylhet,Consumer
+C060,Khulna,Khulna,Consumer
+C061,Dhaka,Dhaka,Consumer
+C062,Chattogram,Chattogram,Consumer
+C063,Sylhet,Sylhet,Small Business
+C064,Khulna,Khulna,Small Business
+C065,Dhaka,Dhaka,Consumer
+C066,Chattogram,Chattogram,Consumer
+C067,Sylhet,Sylhet,Consumer
+C068,Khulna,Khulna,Small Business
+C069,Dhaka,Dhaka,Small Business
+C070,Chattogram,Chattogram,Consumer
+C071,Sylhet,Sylhet,Consumer
+C072,Khulna,Khulna,Small Business
+C073,Dhaka,Dhaka,Consumer
+C074,Chattogram,Chattogram,Consumer
+C075,Sylhet,Sylhet,Small Business
+C076,Khulna,Khulna,Consumer
+C077,Dhaka,Dhaka,Small Business
+C078,Chattogram,Chattogram,Small Business
+C079,Sylhet,Sylhet,Consumer
+C080,Khulna,Khulna,Small Business

@@ -1,0 +1,13 @@
+product_id,product_name,category,list_price_bdt,unit_cost_bdt
+P001,Headphones,Electronics,1999.50,1200.00
+P002,Wireless Mouse,Electronics,750.00,420.00
+P003,Keyboard,Electronics,1250.75,800.00
+P004,Monitor,Electronics,17500.00,14000.00
+P005,Notebook Set,Office,200.00,110.00
+P006,Desk Lamp,Office,1450.00,950.00
+P007,Water Bottle,Home,550.00,300.00
+P008,Storage Box,Home,450.00,260.00
+P009,Backpack,Accessories,1490.00,900.00
+P010,Phone Stand,Accessories,350.00,180.00
+P011,Python Workbook,Books,850.00,550.00
+P012,SQL Practice Book,Books,700.00,440.00

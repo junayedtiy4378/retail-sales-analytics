@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Retail Insights · Junaed Ahmed</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1220;--panel:#121e30;--border:#26354b;--text:#edf3fc;--muted:#a5b5cb;--accent:#5eead4}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,sans-serif}
+    main{max-width:1280px;margin:auto;padding:44px 28px}header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+    h1{margin:4px 0;font-size:clamp(30px,5vw,48px);letter-spacing:-1.5px;line-height:1.15}h2{font-size:18px;margin:0 0 18px}
+    p{color:var(--muted);margin:10px 0}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+    .badge{display:inline-block;border:1px solid var(--border);border-radius:24px;padding:7px 13px;white-space:nowrap;color:var(--accent);font-size:12px}
+    .filters{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;margin:32px 0 22px;padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}
+    label{display:flex;flex:1;min-width:150px;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
+    select,button{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:11px;font:inherit}
+    button{cursor:pointer;min-height:44px}button:hover{border-color:var(--accent)}select:focus,button:focus{outline:2px solid var(--accent);outline-offset:2px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card,.panel{border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:22px}
+    .card span{display:block;color:var(--muted);font-size:12px}.card strong{display:block;font-size:clamp(22px,3vw,31px);letter-spacing:-.6px;margin-top:8px}
+    .card small{color:var(--muted);font-size:11px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:22px 0}
+    .bar-row{margin:0 0 16px}.bar-label{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:12px}.bar-label span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+    .track{background:#24334b;height:13px;border-radius:4px;overflow:hidden}.fill{height:100%;background:var(--accent);border-radius:4px}.blue .fill{background:#8aaeff}
+    .table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:13px 9px;border-bottom:1px solid var(--border);font-size:13px}th{color:var(--muted);font-weight:500}.numeric{text-align:right;font-variant-numeric:tabular-nums}
+    .note{margin-top:22px;font-size:12px}.footer{display:flex;justify-content:space-between;gap:20px;margin-top:24px;color:var(--muted);font-size:12px}a{color:var(--accent)}
+    @media(max-width:760px){main{padding:24px 16px}header{display:block}.badge{margin-top:16px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.card{padding:16px}.footer{display:block}}
+    @media(max-width:420px){.cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div><div class="eyebrow">SQL · Python · Business intelligence</div><h1>Retail Insights</h1><p>A small data analyst portfolio project by Junaed Ahmed.</p></div>
+    <span class="badge">Synthetic data · BDT</span>
+  </header>
+  <section class="filters" aria-label="Dashboard filters">
+    <label>Region<select id="region" aria-label="Filter by region"></select></label>
+    <label>Category<select id="category" aria-label="Filter by category"></select></label>
+    <label>Month<select id="month" aria-label="Filter by month"></select></label>
+    <button type="button" id="reset">Reset filters</button>
+  </section>
+  <p id="selection" role="status" aria-live="polite"></p>
+  <section class="cards" aria-label="Key performance indicators">
+    <div class="card"><span>Net sales</span><strong id="sales">—</strong><small>Completed orders, after discounts</small></div>
+    <div class="card"><span>Gross profit</span><strong id="profit">—</strong><small>Sales less product cost</small></div>
+    <div class="card"><span>Gross margin</span><strong id="margin">—</strong><small>Gross profit / net sales</small></div>
+    <div class="card"><span>Completed orders</span><strong id="orders">—</strong><small>One row represents one order</small></div>
+    <div class="card"><span>Average order value</span><strong id="aov">—</strong><small>Net sales / completed orders</small></div>
+    <div class="card"><span>Return rate</span><strong id="returns">—</strong><small>Returned / (completed + returned)</small></div>
+  </section>
+  <section class="grid">
+    <div class="panel"><h2>Monthly net sales</h2><div id="monthly"></div></div>
+    <div class="panel blue"><h2>Net sales by region</h2><div id="regional"></div></div>
+  </section>
+  <section class="panel"><h2>Top products by net sales</h2><div class="table-scroll"><table>
+    <thead><tr><th scope="col">Product</th><th scope="col" class="numeric">Units sold</th><th scope="col" class="numeric">Net sales (BDT)</th><th scope="col" class="numeric">Gross profit (BDT)</th></tr></thead>
+    <tbody id="products"></tbody>
+  </table></div></section>
+  <p class="note" id="quality"></p>
+  <p class="note">Only completed orders contribute sales and cost. Returned and cancelled orders contribute zero in this simplified model. Gross profit excludes shipping, tax, fees, and other overheads. These are demonstrations, not real business results.</p>
+  <footer class="footer"><span>Runs offline · No API keys · No external scripts</span><a href="https://github.com/junayedtiy4378/retail-sales-analytics">Project source</a></footer>
+</main>
+<script id="sales-data" type="application/json">__RECORDS_JSON__</script>
+<script id="source-summary" type="application/json">__SUMMARY_JSON__</script>
+<script>
+"use strict";
+const records = JSON.parse(document.getElementById("sales-data").textContent);
+const summary = JSON.parse(document.getElementById("source-summary").textContent);
+const money = number => new Intl.NumberFormat("en-BD", {maximumFractionDigits:2, minimumFractionDigits:2}).format(number / 100);
+const filters = ["region", "category", "month"];
+for (const key of filters) {
+  const select = document.getElementById(key);
+  for (const value of ["", ...new Set(records.map(row => row[key]).sort())]) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value || `All ${key === "category" ? "categories" : key + "s"}`;
+    select.append(option);
+  }
+  select.addEventListener("change", render);
+}
+function groupSales(rows, key) {
+  const groups = new Map();
+  for (const row of rows) groups.set(row[key], (groups.get(row[key]) || 0) + row.net_sales_paisa);
+  return [...groups.entries()].sort((a,b) => a[0].localeCompare(b[0]));
+}
+function drawBars(id, entries) {
+  const container = document.getElementById(id);
+  container.replaceChildren();
+  if (!entries.length) { container.textContent = "No completed orders for these filters."; return; }
+  const max = Math.max(...entries.map(item => item[1]), 1);
+  for (const [name, value] of entries) {
+    const row = document.createElement("div"); row.className = "bar-row";
+    const label = document.createElement("div"); label.className = "bar-label";
+    const title = document.createElement("span"); title.textContent = name;
+    const amount = document.createElement("span"); amount.textContent = `BDT ${money(value)}`;
+    label.append(title, amount);
+    const track = document.createElement("div"); track.className = "track";
+    const fill = document.createElement("div"); fill.className = "fill"; fill.style.width = `${value / max * 100}%`;
+    track.append(fill); row.append(label, track); container.append(row);
+  }
+}
+function render() {
+  const selected = records.filter(row => filters.every(key => !document.getElementById(key).value || row[key] === document.getElementById(key).value));
+  const completed = selected.filter(row => row.status === "completed");
+  const returned = selected.filter(row => row.status === "returned").length;
+  const sales = completed.reduce((total,row) => total + row.net_sales_paisa, 0);
+  const profit = completed.reduce((total,row) => total + row.gross_profit_paisa, 0);
+  document.getElementById("sales").textContent = `BDT ${money(sales)}`;
+  document.getElementById("profit").textContent = `BDT ${money(profit)}`;
+  document.getElementById("margin").textContent = sales ? `${(profit / sales * 100).toFixed(2)}%` : "—";
+  document.getElementById("orders").textContent = completed.length.toLocaleString();
+  document.getElementById("aov").textContent = `BDT ${money(completed.length ? sales / completed.length : 0)}`;
+  document.getElementById("returns").textContent = `${(completed.length + returned ? returned / (completed.length + returned) * 100 : 0).toFixed(2)}%`;
+  document.getElementById("selection").textContent = `${selected.length} valid orders match the selected filters, including ${completed.length} completed orders.`;
+  drawBars("monthly", groupSales(completed, "month"));
+  drawBars("regional", groupSales(completed, "region"));
+  const products = new Map();
+  for (const row of completed) {
+    const previous = products.get(row.product_name) || {units:0, sales:0, profit:0};
+    products.set(row.product_name, {units:previous.units + row.quantity, sales:previous.sales + row.net_sales_paisa, profit:previous.profit + row.gross_profit_paisa});
+  }
+  const body = document.getElementById("products"); body.replaceChildren();
+  for (const [name, value] of [...products].sort((a,b) => b[1].sales - a[1].sales || a[0].localeCompare(b[0])).slice(0,8)) {
+    const tr = document.createElement("tr");
+    for (const [index, text] of [name, value.units, money(value.sales), money(value.profit)].entries()) {
+      const td = document.createElement("td"); td.textContent = text;
+      if (index) td.className = "numeric";
+      tr.append(td);
+    }
+    body.append(tr);
+  }
+  if (!products.size) {
+    const tr = document.createElement("tr"), td = document.createElement("td");
+    td.colSpan = 4; td.textContent = "No completed orders for these filters."; tr.append(td); body.append(tr);
+  }
+}
+document.getElementById("reset").addEventListener("click", () => { for (const key of filters) document.getElementById(key).value = ""; render(); });
+document.getElementById("quality").textContent = `Source quality (before dashboard filters): ${summary.raw_rows} raw rows → ${summary.clean_rows} valid orders; ${summary.rejected_rows} rejected rows. See rejected_rows.csv for the audit trail.`;
+render();
+</script>
+</body>
+</html>

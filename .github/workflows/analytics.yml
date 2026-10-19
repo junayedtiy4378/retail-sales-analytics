@@ -1,0 +1,35 @@
+name: Test and build analytics reports
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test data cleaning, calculations, SQL, and exports
+        run: python -m unittest discover -s tests -v
+      - name: Generate reports from the bundled dataset
+        run: python analyze.py
+      - name: Upload downloadable reports
+        uses: actions/upload-artifact@v6
+        with:
+          name: retail-analysis-reports
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
